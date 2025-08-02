@@ -304,14 +304,36 @@
             }
         }
 
+        // Set language preference
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('kalindiLang', lang);
+            applyTranslations(lang);
+            hideLanguageModal();
+        }
+
+        // Show language modal
+        function showLanguageModal() {
+            const modal = document.getElementById('languageModal');
+            modal.classList.add('active');
+        }
+
+        // Hide language modal
+        function hideLanguageModal() {
+            const modal = document.getElementById('languageModal');
+            modal.classList.remove('active');
+        }
+
 
         document.addEventListener('DOMContentLoaded', function() {
             const savedLang = localStorage.getItem('kalindiLang');
             if (savedLang) {
                 currentLang = savedLang;
             } else {
-                showLanguageModal();
-                return;
+                // Since this page does not have a language modal, we will simply default to English
+                // or redirect if that's the desired behavior. The buttons on this page assume the
+                // language is set.
+                currentLang = 'en';
             }
             applyTranslations(currentLang);
             document.getElementById('currentYear').textContent = new Date().getFullYear();
